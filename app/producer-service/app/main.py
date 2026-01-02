@@ -9,7 +9,6 @@ from fastapi import FastAPI, Header, HTTPException, Request
 from pydantic import BaseModel, Field, ConfigDict
 from datetime import datetime
 
-
 logger = logging.getLogger("producer-service")
 logging.basicConfig(level=os.getenv("LOG_LEVEL", "INFO"))
 
