@@ -7,6 +7,7 @@ S3 bucket name
 DynamoDB table name
 Use your own S3 bucket and DynamoDB table.
 
+Please have a look on the attached .png that explain the cloud architecture of this assignment :)
 
 Deploy Infrastructure instructions:
 cd infra/terraform
