@@ -39,4 +39,4 @@ jobs:
 
       - name: Terraform apply
         working-directory: ${{ env.TF_DIR }}
-        run: terraform apply -auto-approve -var="token_value=CHANGE_ME" -var="allowed_ingress_cidr=0.0.0.0/0" -var="producer_image_tag=${{ env.IMAGE_TAG }}" -var="consumer_image_tag=latest"
+        run: terraform apply -auto-approve -var="token_value=CHANGE_ME" -var="allowed_ingress_cidr=0.0.0.0/0" -var="producer_image_tag=latest" -var="consumer_image_tag=latest"
