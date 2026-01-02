@@ -86,6 +86,7 @@ async def produce(
 ):
     expected = get_expected_token()
     if not x_api_token or x_api_token != expected:
+        logger.error("X-API-Token is not valid")
         raise HTTPException(status_code=401, detail="Invalid token")
 
     normalized_ts = validate_timestamp(payload.email_timestream)
