@@ -1,0 +1,43 @@
+name: Build and Push to ECR
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - app/consumer-service/**
+env:
+  AWS_REGION: ${{ secrets.AWS_REGION }}
+  AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+  ECR_PRODUCER_REPO: producer-service
+  ECR_CONSUMER_REPO: consumer-service
+  TAG_NAME: ${{ github.run_number }}
+
+jobs:
+  build_and_push_images:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Configure AWS Creds
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: login to ECR
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com
+
+      - name: Build consumer image
+        run: docker build -f app/consumer-service/Dockerfile -t consumer:${{ env.TAG_NAME }} app/consumer-service
+
+      - name: Tag & push consumer image to ECR
+        run: |
+          CONSUMER_URI="${{ env.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.ECR_CONSUMER_REPO }}:${{ env.TAG_NAME }}"
+          docker tag consumer:${{ env.TAG_NAME }} "$CONSUMER_URI"
+          docker push "$CONSUMER_URI"

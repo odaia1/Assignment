@@ -1,5 +1,5 @@
 {
-  "email_timestream": "2026-01-01T12:00:00Z",
+  "email_timestream": "1735732800000",
   "message": "hello from curl",
   "source": "manual-test"
 }

@@ -5,9 +5,9 @@ from typing import Any, Dict, Optional
 
 import boto3
 from botocore.exceptions import ClientError
-from dateutil import parser as date_parser
 from fastapi import FastAPI, Header, HTTPException, Request
 from pydantic import BaseModel, Field, ConfigDict
+from datetime import datetime
 
 logger = logging.getLogger("producer-service")
 logging.basicConfig(level=os.getenv("LOG_LEVEL", "INFO"))
@@ -49,14 +49,12 @@ def get_expected_token() -> str:
 
 def validate_timestamp(email_timestream: str) -> str:
     try:
-        dt = date_parser.isoparse(email_timestream)
-        if dt.tzinfo is None:
-            dt = dt.replace(tzinfo=date_parser.tz.UTC)
-        return dt.isoformat()
+        dt_object = datetime.fromtimestamp(int(email_timestream) / 1000.0)
+        return str(dt_object)
     except Exception:
         raise HTTPException(
             status_code=400,
-            detail="Invalid email_timestream. Provide an ISO-8601 timestamp, e.g. 2025-12-31T10:15:30Z",
+            detail="Invalid email_timestream. Provide the timestamp as int",
         )
 
 
