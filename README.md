@@ -9,6 +9,7 @@ Please refer to the attached `.png` file in the repository, which illustrates th
 
 ## 🚀 Deploy Infrastructure Instructions
 make sure **both Docker images** (producer and consumer) are built and pushed to **their respective ECR repositories**.
+
 Note: Producer and consumer use different ECR repositories.
 
 Apply Terraform:
@@ -23,7 +24,7 @@ terraform apply -auto-approve \
 
 NOTE: Images does not exist yet, please move on to next step to build them.
 
-Build and push the docker images: 
+Build and push the docker images (please do the same for consumer): 
 ```bash
 cd infra/terraform
 terraform init
