@@ -8,9 +8,7 @@ These are required for Terraform remote state storage and state locking.
 Please refer to the attached `.png` file in the repository, which illustrates the cloud architecture used in this assignment.
 
 ## 🚀 Deploy Infrastructure Instructions
-Before applying Terraform, make sure **both Docker images** (producer and consumer) are built and pushed to **their respective ECR repositories**.
-Example for the **producer service** (repeat the same steps for the consumer service, changing paths and repository names):
-
+make sure **both Docker images** (producer and consumer) are built and pushed to **their respective ECR repositories**.
 Note: Producer and consumer use different ECR repositories.
 
 Apply Terraform:
