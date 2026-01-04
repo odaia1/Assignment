@@ -10,11 +10,21 @@ Use your own S3 bucket and DynamoDB table.
 Please have a look on the attached .png that explain the cloud architecture of this assignment :)
 
 Deploy Infrastructure instructions:
+
+First, please make sure you have the docker images in your ECR.
+example of how to build the producer image run the below commands (same for producer, just change path and names):
 cd infra/terraform
 terraform init
+export PRODUCER_REPO=$(terraform output -raw producer_ecr_repo_url)
+cd app/producer-service
+docker login # please login to your ecr
+docker build . -t $PRODUCER_REPO:latest
+docker push $PRODUCER_REPO:latest
+# please do the same for consumer, please note that ecr repo is not the same for both images. 
+
 terraform apply -auto-approve \
   -var="token_value=CHANGE_ME" \
-  -var="allowed_ingress_cidr=YOUR_PUBLIC_IP/32"
+  -var="allowed_ingress_cidr=<YOUR_PUBLIC_IP>/32"
 
 Test the application:
 1. terraform output alb_dns_name → Get load balancer address
@@ -27,6 +37,3 @@ Test the application:
 Cleanup:
 cd infra/terraform
 terraform destroy -auto-approve
-
-
-
