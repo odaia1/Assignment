@@ -10,6 +10,7 @@ Please refer to the attached `.png` file in the repository, which illustrates th
 ## 🚀 Deploy Infrastructure Instructions
 Before applying Terraform, make sure **both Docker images** (producer and consumer) are built and pushed to **their respective ECR repositories**.
 Example for the **producer service** (repeat the same steps for the consumer service, changing paths and repository names):
+
 Note: Producer and consumer use different ECR repositories.
 
 Apply Terraform:
