@@ -11,6 +11,19 @@ Please refer to the attached `.png` file in the repository, which illustrates th
 Before applying Terraform, make sure **both Docker images** (producer and consumer) are built and pushed to **their respective ECR repositories**.
 Example for the **producer service** (repeat the same steps for the consumer service, changing paths and repository names):
 
+# Note: Producer and consumer use different ECR repositories.
+
+Apply Terraform:
+```bash
+cd infra/terraform
+terraform apply -auto-approve \
+  -var="token_value=CHANGE_ME" \
+  -var="allowed_ingress_cidr=<YOUR_PUBLIC_IP>/32" \
+  -var="producer_image_tag=latest" \
+  -var="consumer_image_tag=latest"
+```
+
+Build and push the docker images: 
 ```bash
 cd infra/terraform
 terraform init
@@ -19,16 +32,6 @@ cd ../../app/producer-service
 docker login
 docker build . -t $PRODUCER_REPO:latest
 docker push $PRODUCER_REPO:latest
-```
-
-# Note: Producer and consumer use different ECR repositories.
-
-Apply Terraform:
-```bash
-cd infra/terraform
-terraform apply -auto-approve \
-  -var="token_value=CHANGE_ME" \
-  -var="allowed_ingress_cidr=<YOUR_PUBLIC_IP>/32"
 ```
 
 🧪 Test the Application
