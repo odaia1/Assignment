@@ -23,6 +23,8 @@ terraform apply -auto-approve \
   -var="consumer_image_tag=latest"
 ```
 
+NOTE: Images does not exist yet, please move on to next step to build them.
+
 Build and push the docker images: 
 ```bash
 cd infra/terraform
