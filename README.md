@@ -33,21 +33,26 @@ terraform apply -auto-approve \
 
 🧪 Test the Application
 Get the ALB DNS name:
+```bash
 terraform output alb_dns_name
+```
 
 Test producer health endpoint:
+```bash
 curl http://<ALB_DNS_NAME>/health → expected: {"status":"ok"}
+```
 
 Send a request to the producer (use request_example.json or create your own):
-curl -X POST http://<ALB_DNS_NAME>/produce \
-  -H "Content-Type: application/json" \
-  -H "X-API-Token: CHANGE_ME" \
-  --data-binary "@request.json"
+```bash 
+curl -X POST http://<ALB_DNS_NAME>/produce -H "Content-Type: application/json" -H "X-API-Token: CHANGE_ME" --data-binary "@request.json"
+```
 
 Verify the output in the S3 bucket.
 Expected object path format:
 events/YYYY-MM-DD/<GENERATED_RESPONSE_FILE>
 
 🧹 Cleanup
+```bash
 cd infra/terraform
 terraform destroy -auto-approve
+```
