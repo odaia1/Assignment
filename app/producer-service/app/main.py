@@ -12,6 +12,7 @@ from datetime import datetime
 logger = logging.getLogger("producer-service")
 logging.basicConfig(level=os.getenv("LOG_LEVEL", "INFO"))
 
+
 AWS_REGION = os.getenv("AWS_REGION", "us-east-1")
 SQS_QUEUE_URL = os.getenv("SQS_QUEUE_URL", "")
 SSM_TOKEN_PARAM_NAME = os.getenv("SSM_TOKEN_PARAM_NAME", "/devops-assignment/token")
