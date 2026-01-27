@@ -15,7 +15,7 @@ provider "aws" {
 
 module "sqs" {
   source     = "./modules/sqs"
-  queue_name = "checkpoint-assignment-events"
+  queue_name = "assignment-events"
 }
 
 module "s3" {
@@ -25,7 +25,7 @@ module "s3" {
 
 module "ssm" {
   source           = "./modules/ssm"
-  parameter_name   = "/checkpoint-assignment/token"
+  parameter_name   = "/assignment/token"
   parameter_value  = var.token_value
 }
 

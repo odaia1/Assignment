@@ -1,5 +1,5 @@
 resource "aws_security_group" "alb_sg" {
-  name   = "checkpoint-assignment-alb-sg"
+  name   = "assignment-alb-sg"
   vpc_id = data.aws_vpc.default.id
 
   ingress {
@@ -18,7 +18,7 @@ resource "aws_security_group" "alb_sg" {
 }
 
 resource "aws_security_group" "producer_sg" {
-  name   = "checkpoint-assignment-producer-sg"
+  name   = "assignment-producer-sg"
   vpc_id = data.aws_vpc.default.id
 
   ingress {
@@ -37,7 +37,7 @@ resource "aws_security_group" "producer_sg" {
 }
 
 resource "aws_security_group" "consumer_sg" {
-  name   = "checkpoint-assignment-consumer-sg"
+  name   = "assignment-consumer-sg"
   vpc_id = data.aws_vpc.default.id
 
   egress {
@@ -49,7 +49,7 @@ resource "aws_security_group" "consumer_sg" {
 }
 
 resource "aws_lb" "this" {
-  name               = "checkpoint-assignment-alb"
+  name               = "assignment-alb"
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb_sg.id]
   subnets            = data.aws_subnets.default_vpc_subnets.ids

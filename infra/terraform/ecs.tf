@@ -1,19 +1,19 @@
 resource "aws_ecs_cluster" "this" {
-  name = "checkpoint-assignment-cluster"
+  name = "assignment-cluster"
 }
 
 resource "aws_cloudwatch_log_group" "producer" {
-  name              = "/ecs/checkpoint-assignment/producer"
+  name              = "/ecs/assignment/producer"
   retention_in_days = 7
 }
 
 resource "aws_cloudwatch_log_group" "consumer" {
-  name              = "/ecs/checkpoint-assignment/consumer"
+  name              = "/ecs/assignment/consumer"
   retention_in_days = 7
 }
 
 resource "aws_ecs_task_definition" "producer" {
-  family                   = "checkpoint-assignment-producer"
+  family                   = "assignment-producer"
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
   cpu                      = "256"
@@ -48,7 +48,7 @@ resource "aws_ecs_task_definition" "producer" {
 }
 
 resource "aws_ecs_task_definition" "consumer" {
-  family                   = "checkpoint-assignment-consumer"
+  family                   = "assignment-consumer"
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
   cpu                      = "256"
@@ -82,7 +82,7 @@ resource "aws_ecs_task_definition" "consumer" {
 }
 
 resource "aws_ecs_service" "producer" {
-  name            = "checkpoint-assignment-producer-svc"
+  name            = "assignment-producer-svc"
   cluster         = aws_ecs_cluster.this.id
   task_definition = aws_ecs_task_definition.producer.arn
   desired_count   = 1
@@ -104,7 +104,7 @@ resource "aws_ecs_service" "producer" {
 }
 
 resource "aws_ecs_service" "consumer" {
-  name            = "checkpoint-assignment-consumer-svc"
+  name            = "assignment-consumer-svc"
   cluster         = aws_ecs_cluster.this.id
   task_definition = aws_ecs_task_definition.consumer.arn
   desired_count   = 1

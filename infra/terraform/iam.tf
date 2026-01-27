@@ -9,7 +9,7 @@ data "aws_iam_policy_document" "ecs_task_assume_role" {
 }
 
 resource "aws_iam_role" "ecs_task_execution_role" {
-  name               = "checkpoint-assignment-ecs-exec"
+  name               = "assignment-ecs-exec"
   assume_role_policy = data.aws_iam_policy_document.ecs_task_assume_role.json
 }
 
@@ -19,7 +19,7 @@ resource "aws_iam_role_policy_attachment" "ecs_exec_attach" {
 }
 
 resource "aws_iam_role" "producer_task_role" {
-  name               = "checkpoint-assignment-producer-task"
+  name               = "assignment-producer-task"
   assume_role_policy = data.aws_iam_policy_document.ecs_task_assume_role.json
 }
 
@@ -36,13 +36,13 @@ data "aws_iam_policy_document" "producer_policy" {
 }
 
 resource "aws_iam_role_policy" "producer_inline" {
-  name   = "checkpoint-assignment-producer-inline"
+  name   = "assignment-producer-inline"
   role   = aws_iam_role.producer_task_role.id
   policy = data.aws_iam_policy_document.producer_policy.json
 }
 
 resource "aws_iam_role" "consumer_task_role" {
-  name               = "checkpoint-assignment-consumer-task"
+  name               = "assignment-consumer-task"
   assume_role_policy = data.aws_iam_policy_document.ecs_task_assume_role.json
 }
 
@@ -64,7 +64,7 @@ data "aws_iam_policy_document" "consumer_policy" {
 }
 
 resource "aws_iam_role_policy" "consumer_inline" {
-  name   = "checkpoint-assignment-consumer-inline"
+  name   = "assignment-consumer-inline"
   role   = aws_iam_role.consumer_task_role.id
   policy = data.aws_iam_policy_document.consumer_policy.json
 }
